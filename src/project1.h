@@ -10,6 +10,4 @@ struct Student {
   float height;
 };
 
-
-
 #endif // _PROJECT1_H

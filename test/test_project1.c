@@ -18,4 +18,10 @@ void test_project1_(void)
   72.5,               // weight
   1.88                // height
   };
+  Student abu = { 
+  "Abu",              // name
+  27,                 // age
+  73.5,               // weight
+  1.91                // height
+  };
 }

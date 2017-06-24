@@ -9,7 +9,48 @@ void setUp(void)
 void tearDown(void)
 {
 }
-
+  
+  
+  Student abu = { 
+  "Abu",              // name
+  27,                 // age
+  73.5,               // weight
+  1.91                // height
+  };
+  
+  Student ali = { 
+  "Ali",              // name
+  23,                 // age
+  70.5,               // weight
+  1.78                // height
+  };
+  
+  Item item = {
+    (Item *)-1,       //next
+    (void *)&ali      //data
+  };
+  
+  Student baba = { 
+  "Baba",              // name
+  25,                  // age
+  72.5,                // weight
+  1.88                 // height
+  };
+  
+  Item itemali = {
+    (Item *)-1,        // next
+    (void *)&ali       // data
+  };
+  Item itembaba = {
+    (Item *)-1,        // next
+    (void *)&baba      // data
+  };
+  Item itemabu = {
+    (Item *)-1,        // next
+    (void *)&abu      // data
+  };
+  
+  
 void test_listInit_ensure_initialized_to_NULL_and_0 (void)
 {
   LinkedList list = {
@@ -28,17 +69,7 @@ void test_listInit_ensure_initialized_to_NULL_and_0 (void)
 void test_listAdd_given_an_empty_linked_list_then_add_ali_expect_1_item_in_list(void)
 {
   LinkedList list;
-  Student ali = { 
-  "Ali",              // name
-  23,                 // age
-  70.5,               // weight
-  1.78                // height
-  };
   
-  Item item = {
-    (Item *)-1,       //next
-    (void *)&ali      //data
-  };
   listInit(&list);
   listAdd(&list,&item);
   TEST_ASSERT_EQUAL_PTR(&item,list.head);
@@ -52,28 +83,6 @@ void test_ali_and_baba(void)
 {
   LinkedList list;
  
-  Student ali = { 
-  "Ali",               // name
-  23,                  // age
-  70.5,                // weight
-  1.78                 // height
-  };
-  
-  Student baba = { 
-  "Baba",              // name
-  25,                  // age
-  72.5,                // weight
-  1.88                 // height
-  };
-  
-  Item itemali = {
-    (Item *)-1,        // next
-    (void *)&ali       // data
-  };
-  Item itembaba = {
-    (Item *)-1,        // next
-    (void *)&baba      // data
-  };
   list.head = &itemali;
   list.tail = &itemali;
   list.len = 1;
@@ -85,4 +94,22 @@ void test_ali_and_baba(void)
   TEST_ASSERT_EQUAL_PTR(&itembaba,itemali.next);
   TEST_ASSERT_NULL(itembaba.next);
   TEST_ASSERT_EQUAL_PTR(&baba,itembaba.data);
+}
+
+void test_ali_baba_and_abu(void)
+{
+  LinkedList list;
+  
+  list.head = &itemali;
+  list.tail = &itemabu;
+  list.len = 2;
+  itembaba.next = &itemabu;
+  itemabu.next = (Item *)-1;
+  listAdd(&list,&itemabu);
+  TEST_ASSERT_EQUAL_PTR(&itemali,list.head);
+  TEST_ASSERT_EQUAL(3,list.len);
+  TEST_ASSERT_EQUAL_PTR(&itemabu,itembaba.next);
+  TEST_ASSERT_NULL(itemabu.next);
+  TEST_ASSERT_EQUAL_PTR(&abu,itemabu.data);
+  
 }
