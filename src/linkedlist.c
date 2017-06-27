@@ -23,3 +23,23 @@ void listAdd(LinkedList *list, Item*item)
   list->len += 1 ;
   item->next = NULL;
 }
+
+void listRemove(LinkedList *list,char *name	 )
+{
+	if (list->len == 1)					// IF THERE IS ONLY ONE PEOPLE
+	{
+		list->head = NULL;
+		list->tail = NULL;
+	}
+	
+	else if (list->len > 1)				// IF THERE IS MORE THAN ONE PEOPLE
+	{
+		list->head = list->head->next;
+		list->len -= 1;
+		
+	}
+	else								// IF THERE IS NEGATIVE VALUE ON LENGTH
+	{	
+		printf("ERROR there is no negative people");
+	}
+}

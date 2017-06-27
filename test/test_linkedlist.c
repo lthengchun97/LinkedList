@@ -86,8 +86,8 @@ void test_ali_and_baba(void)
   list.head = &itemali;
   list.tail = &itemali;
   list.len = 1;
-  itemali.next = &itembaba;
-  itembaba.next = (Item *)-1;
+  itemali.next = NULL;
+  itemali.next = (Item *)-1;
   listAdd(&list,&itembaba);
   TEST_ASSERT_EQUAL_PTR(&itemali,list.head);
   TEST_ASSERT_EQUAL(2,list.len);
@@ -96,15 +96,15 @@ void test_ali_and_baba(void)
   TEST_ASSERT_EQUAL_PTR(&baba,itembaba.data);
 }
 
-void test_ali_baba_and_abu(void)
+void test_ali_baba_and_add_abu(void)
 {
   LinkedList list;
   
   list.head = &itemali;
-  list.tail = &itemabu;
+  list.tail = &itembaba;
   list.len = 2;
-  itembaba.next = &itemabu;
-  itemabu.next = (Item *)-1;
+  itembaba.next = NULL;
+  itembaba.next = (Item *)-1;
   listAdd(&list,&itemabu);
   TEST_ASSERT_EQUAL_PTR(&itemali,list.head);
   TEST_ASSERT_EQUAL(3,list.len);
@@ -112,4 +112,25 @@ void test_ali_baba_and_abu(void)
   TEST_ASSERT_NULL(itemabu.next);
   TEST_ASSERT_EQUAL_PTR(&abu,itemabu.data);
   
+}
+
+void test_remove_ali(void)
+{
+  LinkedList list;
+  
+  list.head = &itemali;
+  list.tail = &itemabu;
+  itemali.next = &itembaba;
+  itembaba.next = &itemabu;
+  itemabu.next = NULL;
+  itemabu.next = (Item *)-1;
+  list.len = 3;
+  
+  listRemove(&list,"Ali");
+  
+  TEST_ASSERT_EQUAL_PTR(&itembaba,list.head);
+  TEST_ASSERT_EQUAL(2,list.len);
+  TEST_ASSERT_EQUAL_PTR(&itemabu,itembaba.next);
+  TEST_ASSERT_NULL(itemabu.next);
+  TEST_ASSERT_EQUAL_PTR(&abu,itemabu.data);
 }
