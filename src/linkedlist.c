@@ -24,8 +24,9 @@ void listAdd(LinkedList *list, Item*item)
   item->next = NULL;
 }
 
-void listRemove(LinkedList *list,char *name	 )
+void listRemove(LinkedList *list,char *name	)      //BY USING LENGTH OF THE LIST
 {
+	
 	if (list->len == 1)					// IF THERE IS ONLY ONE PEOPLE
 	{
 		list->head = NULL;
@@ -33,9 +34,42 @@ void listRemove(LinkedList *list,char *name	 )
 	}
 	
 	else if (list->len > 1)				// IF THERE IS MORE THAN ONE PEOPLE
-	{
-		list->head = list->head->next;
-		list->len -= 1;
+	{									// Hence, we need to compare to the name
+		Item* before = NULL;
+		Item* now = list->head;
+		
+		if(now == NULL)
+			return NULL;
+		else
+		while(strcmp(((Student*)now->data)->name,name)! = 0)
+		{
+		before = now;
+		now = now->next;
+		}
+		if(now == list ->head)
+		{
+			if(list->head == list->tail)
+			{
+				listInit(list);
+			}
+			else
+			{
+				list->head = list->head->next;
+				list->len -= 1;
+			}
+		}
+		else if(now =- list->tail)
+		{
+			list->tail = before;
+			before->next = NULL;
+			list ->len -=1;
+		}
+		else
+		{
+			before->next = now ->next;
+			list -> len -= 1;
+		}
+		
 		
 	}
 	else								// IF THERE IS NEGATIVE VALUE ON LENGTH
@@ -43,3 +77,4 @@ void listRemove(LinkedList *list,char *name	 )
 		printf("ERROR there is no negative people");
 	}
 }
+
