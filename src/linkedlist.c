@@ -31,6 +31,7 @@ void listRemove(LinkedList *list,char *name	)      //BY USING LENGTH OF THE LIST
 	{
 		list->head = NULL;
 		list->tail = NULL;
+		list->len -= 1;
 	}
 	
 	else if (list->len > 1)				// IF THERE IS MORE THAN ONE PEOPLE
